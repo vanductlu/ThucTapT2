@@ -69,17 +69,6 @@
     <script src="{{ asset('public/frontend/js/main.js') }}"></script>
 
     <script>
-        // Sticky Header
-        window.onscroll = function () {
-            var header = document.getElementById("header");
-            if (window.pageYOffset > header.offsetTop) {
-                header.classList.add("sticky");
-            } else {
-                header.classList.remove("sticky");
-            }
-        };
-
-
         // Xử lý tìm kiếm
         $('#frmSearch').on('submit', function (e) {
             e.preventDefault(); // Ngăn chặn hành vi submit mặc định
@@ -178,20 +167,6 @@
 
             // Load sản phẩm lần đầu
             filterProducts();
-        });
-
-
-        // Kiểm tra mật khẩu có trùng nhau không
-        $('#password, #confirm-password').on('keyup', function () {
-            var password = $('#password').val();
-            var confirm_password = $('#confirm-password').val();
-            $('#confirm-password').css('border-color', password !== confirm_password ? "red" : "green");
-        });
-
-        // Kiểm tra input đăng nhập
-        $('#username, #passwordLogin').on('keyup', function () {
-            $('#username').css('border-color', $('#username').val() === "" ? "red" : "");
-            $('#passwordLogin').css('border-color', $('#passwordLogin').val() === "" ? "red" : "");
         });
     </script>
 

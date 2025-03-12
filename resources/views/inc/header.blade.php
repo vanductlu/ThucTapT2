@@ -62,7 +62,7 @@
                 <!-- SEARCH BAR -->
                 <div class="col-md-6">
                     <div class="header-search">
-                    <form id="frmSearch" method="GET">
+                    <form id="frmSearch" action="{{ route('products.search') }}" method="GET">
                         <input class="input" type="text" name="q" id="contentSearch" placeholder="Tìm kiếm sản phẩm..." required>
                         <button class="search-btn" type="submit">
                             <i class="fa fa-search"></i> Tìm kiếm

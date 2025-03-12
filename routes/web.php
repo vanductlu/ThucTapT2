@@ -54,16 +54,12 @@ Route::prefix('products')->group(function () {
 Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('users', UserController::class);
     Route::resource('roles', UserRoleController::class);
+    Route::resource('categories', CategoryController::class);
+    Route::resource('publishers', PublishingCompanyController::class);
 });
 
 // Quản lý đơn hàng
 Route::prefix('purchases')->middleware('auth')->group(function () {
     Route::get('/', [PurchaseController::class, 'index'])->name('purchases.index');
     Route::get('/{id}', [PurchaseController::class, 'show'])->name('purchases.show');
-});
-
-// Quản lý danh mục và nhà xuất bản (admin)
-Route::prefix('admin')->middleware(['auth', 'role:admin'])->group(function () {
-    Route::resource('categories', CategoryController::class);
-    Route::resource('publishers', PublishingCompanyController::class);
 });

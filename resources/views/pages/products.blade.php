@@ -36,29 +36,39 @@
             </div>
 
             <div id="store" class="col-md-9">
+                @if(isset($query) && !empty($query))
+                    <div class="alert alert-info">
+                        Kết quả tìm kiếm cho: <strong>{{ $query }}</strong>
+                    </div>
+                @endif
+                
                 @if($products->count())
                     <div class="row" id="product-list">
                         @foreach($products as $product)
-                            <div class="col-md-4">
-                                <div class="product">
-                                    <div class="product-img">
-                                        <a href="{{ route('product.show', $product->Product_Id) }}">
-                                            <img src="{{ asset('public/frontend/images/' . basename($product->Avatar)) }}" alt="{{ $product->Name }}">
-                                        </a>
-                                    </div>
-                                    <div class="product-body">
-                                        <p class="product-category">{{ $product->category->Category_Name ?? 'Không có danh mục' }}</p>
-                                        <h3 class="product-name">
-                                            <a href="{{ route('product.show', $product->Product_Id) }}">{{ $product->Name }}</a>
-                                        </h3>
-                                        <h4 class="product-price">{{ $product->Price ? number_format($product->Price, 0, ',', '.') . '₫' : 'Chưa có giá' }}</h4>
-                                    </div>
+                        <div class="col-md-4">
+                            <div class="product">
+                                <div class="product-img">
+                                    <a href="{{ route('product.show', $product->Product_Id) }}">
+                                        <img src="{{ asset('public/frontend/images/' . basename($product->Avatar)) }}" alt="{{ $product->Name }}">
+                                    </a>
+                                </div>
+                                <div class="product-body">
+                                    <p class="product-category">{{ $product->category->Category_Name ?? 'Không có danh mục' }}</p>
+                                    <h3 class="product-name">
+                                        <a href="{{ route('product.show', $product->Product_Id) }}">{{ $product->Name }}</a>
+                                    </h3>
+                                    <h4 class="product-price">{{ number_format($product->Price, 0, ',', '.') }}₫</h4>
                                 </div>
                             </div>
+                        </div>
                         @endforeach
                     </div>
                     <div id="pagination">
-                        {{ $products->links('pagination::bootstrap-4') }}
+                        @if(isset($query))
+                            {{ $products->appends(['q' => $query])->links('pagination::bootstrap-4') }}
+                        @else
+                            {{ $products->links('pagination::bootstrap-4') }}
+                        @endif
                     </div>
                 @else
                     <p>Không tìm thấy sản phẩm nào phù hợp.</p>

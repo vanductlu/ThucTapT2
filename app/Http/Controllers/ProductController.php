@@ -54,8 +54,13 @@ class ProductController extends Controller
         $query = trim($request->input('q'));
         $categories = Category::all();
         $publishers = PublishingCompany::all();
+        
+        if (empty($query)) {
+            return redirect()->route('products.index');
+        }
+        
         $products = Product::where('Name', 'like', "%{$query}%")->paginate(12);
-
+    
         return view('pages.products', compact('products', 'categories', 'publishers', 'query'));
     }
 
