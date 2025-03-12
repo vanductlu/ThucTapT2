@@ -62,11 +62,12 @@
                 <!-- SEARCH BAR -->
                 <div class="col-md-6">
                     <div class="header-search">
-                        <form id="frmSearch" method="POST" action="{{ url('/search') }}">
-                            @csrf
-                            <input class="input" name="contentSearch" id="contentSearch" placeholder="Tìm tác phẩm, tác giả, loại sách, nhà xuất bản ...">
-                            <button class="search-btn" id="submitFrmSearch">Tìm kiếm</button>
-                        </form>
+                    <form id="frmSearch" action="{{ route('products.search') }}" method="GET">
+                        <input class="input" type="text" name="q" id="contentSearch" placeholder="Tìm kiếm sản phẩm..." required>
+                        <button class="search-btn" type="submit">
+                            <i class="fa fa-search"></i> Tìm kiếm
+                        </button>
+                    </form>
                     </div>
                 </div>
                 <!-- /SEARCH BAR -->
@@ -134,13 +135,14 @@
             <div id="responsive-nav">
                 <ul id="mainNav" class="main-nav nav navbar-nav">
                     <li class="{{ request()->is('/') ? 'active' : '' }}"><a href="{{ url('/') }}">Trang chủ</a></li>
-                    <li class="{{ request()->is('products') ? 'active' : '' }}"><a href="{{ url('/products') }}">Sản phẩm</a></li>
-                    <li><a href="{{ url('/products?category=Văn Học') }}">Văn học</a></li>
-                    <li><a href="{{ url('/products?category=Kinh Tế') }}">Kinh tế</a></li>
-                    <li><a href="{{ url('/products?category=Tâm Lý') }}">Tâm lý - Kỹ năng sống</a></li>
-                    <li><a href="{{ url('/products?category=Thiếu Nhi') }}">Thiếu nhi</a></li>
-                    <li><a href="{{ url('/products?category=Nuôi Dạy Con') }}">Nuôi dạy con</a></li>
-                    <li><a href="{{ url('/products?category=Học Ngoại Ngữ') }}">Học ngoại ngữ</a></li>
+                    <li class="{{ request()->is('products') ? 'active' : '' }}"><a href="{{ route('products.index') }}">Sản phẩm</a></li>
+                    @foreach($categories as $category)
+                        <li>
+                            <a href="#" class="category-link" data-id="{{ $category->Category_Id }}">
+                                {{ $category->Category_Name }}
+                            </a>
+                        </li>
+                    @endforeach
                 </ul>
             </div>
         </div>

@@ -9,6 +9,7 @@ class PurchaseState extends Model
 {
     use HasFactory;
 
+<<<<<<< HEAD
     protected $table = 'purchase_states';
     protected $fillable = ['value', 'description', 'display_text'];
 
@@ -16,4 +17,13 @@ class PurchaseState extends Model
     {
         return $this->hasMany(Purchase::class, 'purchase_state_id');
     }
+=======
+    protected $primaryKey = 'PurchaseState_Key'; // Đảm bảo primary key đúng
+
+    protected $fillable = [
+        'Value',
+        'Description',
+        'DisplayText',
+    ];
+>>>>>>> main
 }

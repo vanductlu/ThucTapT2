@@ -9,6 +9,7 @@ class PurchaseDetail extends Model
 {
     use HasFactory;
 
+<<<<<<< HEAD
     protected $table = 'purchase_details';
     protected $fillable = ['purchase_id', 'product_id', 'quantity', 'total_price'];
 
@@ -22,3 +23,14 @@ class PurchaseDetail extends Model
         return $this->belongsTo(Product::class, 'product_id');
     }
 }
+=======
+    protected $primaryKey = 'Purchase_Id, Product_Id'; // Cặp khóa chính
+
+    protected $fillable = [
+        'Purchase_Id',
+        'Product_Id',
+        'Quantity',
+        'TotalAmount',
+    ];
+}
+>>>>>>> main

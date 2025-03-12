@@ -2,16 +2,16 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+class User extends Model
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory;
 
+    protected $primaryKey = 'User_Id'; 
+
+<<<<<<< HEAD
     protected $table = 'users';
     protected $fillable = ['role_id', 'email', 'password', 'name', 'address', 'phone_number'];
 
@@ -48,3 +48,20 @@ class User extends Authenticatable
 
     
 }
+=======
+    protected $fillable = [
+        'User_Role',
+        'Email',
+        'Password',
+        'Last_Name',
+        'First_Name',
+        'Address',
+        'Phonenumber',
+    ];
+
+    public function role()
+    {
+        return $this->belongsTo(UserRole::class, 'User_Role', 'Role_Id');
+    }
+}
+>>>>>>> main
