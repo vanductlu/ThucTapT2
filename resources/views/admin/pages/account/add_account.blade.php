@@ -1,3 +1,5 @@
+@extends('layouts.admin.dashboard')
+
 @section('content')
 <div class="content-page">
     <div class="row">
@@ -68,7 +70,7 @@
 
         <fieldset style="padding-top: 20px; text-align: center">
             <button class="btn btn-success" type="submit">Thêm</button>
-            <a href="{{ route('users.create') }}" class="btn btn-danger">Hủy</a>
+            <a href="{{ route('admin.account') }}" class="btn btn-danger">Hủy</a>
         </fieldset>
 
     </form>

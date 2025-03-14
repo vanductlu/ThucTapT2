@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('user', function (Blueprint $table) {
             $table->increments('User_Id');
-            $table->unsignedInteger('User_Role');  // Chắc chắn cột này là unsigned
-            $table->string('Email', 50)->unique();
-            $table->string('Password', 10000)->nullable();
+            $table->unsignedInteger('User_Role');
+            $table->string('email', 50)->unique();
+            $table->string('password', 10000)->nullable();
             $table->string('Last_Name', 100)->nullable();
             $table->string('First_Name', 100)->nullable();
             $table->string('Address', 255)->nullable();

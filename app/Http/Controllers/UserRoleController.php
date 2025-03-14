@@ -2,124 +2,74 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\UserRole;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
-class UserRoleController extends Controller
+class UserController extends Controller
 {
-<<<<<<< HEAD
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    // Hiển thị form đăng nhập
+    public function showLoginForm()
     {
-        //
+        return view('admin.login');
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\UserRole  $userRole
-     * @return \Illuminate\Http\Response
-     */
-    public function show(UserRole $userRole)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\UserRole  $userRole
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(UserRole $userRole)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\UserRole  $userRole
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, UserRole $userRole)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\UserRole  $userRole
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(UserRole $userRole)
-    {
-        //
-    }
-}
-=======
-    public function index()
-    {
-        return UserRole::all();
-    }
-
-    public function store(Request $request)
+    // Xử lý đăng nhập
+    public function login(Request $request)
     {
         $request->validate([
-            'Role_Name' => 'required|string|max:255',
+            'email' => 'required|email',
+            'password' => 'required|string|min:8',
         ]);
 
-        $role = UserRole::create($request->all());
+        $credentials = $request->only('email', 'password');
 
-        return response()->json($role, 201);
+        if (Auth::attempt($credentials)) {
+            // Đăng nhập thành công, chuyển hướng đến trang index của admin
+            return redirect()->route('admin.index');
+        }
+
+        // Đăng nhập thất bại, quay lại trang đăng nhập với thông báo lỗi
+        return redirect()->route('login')->with('error', 'Invalid email or password.');
     }
 
-    public function show($id)
+    // Xử lý đăng xuất
+    public function logout()
     {
-        return UserRole::findOrFail($id);
+        Auth::logout();
+        return redirect()->route('login');
     }
 
-    public function update(Request $request, $id)
+    // Hiển thị form đăng ký
+    public function showRegistrationForm()
     {
-        $role = UserRole::findOrFail($id);
-        $role->update($request->all());
-
-        return response()->json($role, 200);
+        return view('admin.register');
     }
 
-    public function destroy($id)
+    // Xử lý đăng ký
+    public function register(Request $request)
     {
-        $role = UserRole::findOrFail($id);
-        $role->delete();
+        $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:user', // Đảm bảo bảng là user
+            'password' => 'required|string|min:8|confirmed',
+        ]);
 
-        return response()->json(null, 204);
+        // Tạo người dùng mới
+        $user = User::create([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password), // Mã hóa mật khẩu
+            'user_role' => 1, // Giá trị mặc định cho User_Role
+        ]);
+
+        // Đăng nhập người dùng sau khi đăng ký thành công
+        Auth::login($user);
+
+        // Đăng ký thành công, chuyển hướng đến trang index của admin
+        return redirect()->route('admin.index');
     }
 }
->>>>>>> main

@@ -25,6 +25,7 @@
                         <div class="card">
                             <div class="card-body p-4">
                                 
+
                                 <div class="text-center w-75 m-auto">
                                     <a href="{{ route('login') }}">
                                         <span><img src="{{ asset('assets/images/ebook.png') }}" alt="" height="26"></span>

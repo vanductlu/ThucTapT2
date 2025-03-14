@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.admin')
 
 @section('content')
 <div class="content-page">
@@ -36,18 +36,18 @@
                 <tbody>
                     @foreach ($users as $user)
                     <tr class="text-center">
-                        <td>{{ $user->id }}</td>
-                        <td>{{ $user->role->role_name ?? 'N/A' }}</td>
+                        <td>{{ $user->User_Id }}</td>
+                        <td>{{ $user->role->Role_Name ?? 'N/A' }}</td>
                         <td>{{ $user->email }}</td>
-                        <td>{{ $user->first_name }}</td>
-                        <td>{{ $user->last_name }}</td>
+                        <td>{{ $user->First_Name }}</td>
+                        <td>{{ $user->Last_Name }}</td>
                         <td>{{ $user->address }}</td>
-                        <td>{{ $user->phone_number }}</td>
+                        <td>{{ $user->Phonenumber }}</td>
                         <td>
-                            <a href="{{ route('users.edit', $user->id) }}" class="btn btn-warning btn-sm">
+                            <a href="{{ route('users.edit', ['user' => $user->User_Id]) }}" class="btn btn-warning btn-sm">
                                 <i class="far fa-edit"></i> Sửa
                             </a>
-                            <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display:inline;">
+                            <form action="{{ route('users.destroy', ['user' => $user->User_Id]) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc muốn xóa?');">

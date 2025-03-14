@@ -1,3 +1,4 @@
+@extends('layouts.admin')
 
 @section('content')
 <div class="content-page">
@@ -16,17 +17,17 @@
         </div>
     </div>
 
-    <form style="margin: 0 auto; width:300px; font-size: 14px" action="{{ route('users.update', $user->id) }}" method="POST">
+    <form style="margin: 0 auto; width:300px; font-size: 14px" action="{{ route('users.update', $user->User_Id) }}" method="POST">
         @csrf
         @method('PUT')
         <fieldset>
             <legend>Thông tin tài khoản</legend>
             Họ
-            <input class="form-control mb-2" type="text" name="first_name" value="{{ $user->first_name }}" required />
+            <input class="form-control mb-2" type="text" name="First_Name" value="{{ $user->First_Name }}" required />
         </fieldset>
         <fieldset>
             Tên
-            <input class="form-control mb-2" type="text" name="last_name" value="{{ $user->last_name }}" required />
+            <input class="form-control mb-2" type="text" name="Last_Name" value="{{ $user->Last_Name }}" required />
         </fieldset>
         <fieldset>
             Email
@@ -38,17 +39,18 @@
         </fieldset>
         <fieldset>
             Số điện thoại
-            <input class="form-control mb-2" type="text" name="phone_number" value="{{ $user->phone_number }}" />
+            <input class="form-control mb-2" type="text" name="Phonenumber" value="{{ $user->Phonenumber }}" />
         </fieldset>
         <fieldset>
             Địa chỉ
-            <input class="form-control mb-2" type="text" name="address" value="{{ $user->address }}" />
+            <input class="form-control mb-2" type="text" name="Address" value="{{ $user->Address }}" />
         </fieldset>
         <fieldset>
             Chức vụ
-            <select class="form-control mb-2" name="role">
-                <option value="0" {{ $user->role == 0 ? 'selected' : '' }}>User</option>
-                <option value="1" {{ $user->role == 1 ? 'selected' : '' }}>Admin</option>
+            <select class="form-control mb-2" name="User_Role">
+                @foreach($roles as $role)
+                    <option value="{{ $role->Role_Id }}" {{ $user->User_Role == $role->Role_Id ? 'selected' : '' }}>{{ $role->Role_Name }}</option>
+                @endforeach
             </select>
         </fieldset>
         <fieldset class="text-center pt-3">

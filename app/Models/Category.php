@@ -9,14 +9,6 @@ class Category extends Model
 {
     use HasFactory;
 
-<<<<<<< HEAD
-    protected $table = 'categories';
-    protected $fillable = ['name'];
-
-    public function products()
-    {
-        return $this->hasMany(Product::class, 'category_id');
-=======
     protected $table = 'category'; // Nên để tên table viết thường để chuẩn Laravel
     protected $primaryKey = 'Category_Id'; 
     public $incrementing = false; // Vì Category_Id không phải auto-increment
@@ -30,6 +22,5 @@ class Category extends Model
     public function products()
     {
         return $this->hasMany(Product::class, 'Category_Id', 'Category_Id');
->>>>>>> main
     }
 }
